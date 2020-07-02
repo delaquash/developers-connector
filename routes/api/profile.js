@@ -21,10 +21,13 @@ router.get('/me', auth, async(req, res) => {
         res.status(500).send('Sever Error');
     }
 });
+
+
 // @route POST api/profie
 // @desc Create or update user profile
-// @access Private
+// @access Privatee
 router.post('/', [auth, [
+    // To ensure status and skill are not left unfilled in front-end
     check('status', 'Status is required').not().isEmpty(),
     check("skills", "Skills is reqired").not().isEmpty()
 ]], async(req, res) => {
@@ -33,6 +36,7 @@ router.post('/', [auth, [
         return res.status(400).json({ errors: errors.array() });
     }
     const { company, website, location, bio, status, githubusername, skills, youtube, instagram, facebook, twitter, linkedin } = req.body;
+
     const profileFields = {};
     profileFields.user = req.user.id;
 
@@ -58,7 +62,7 @@ router.post('/', [auth, [
         if (profile) {
             // we are going to update
             profile = await Profile.findOneAndUpdate({ user: req.user.id }, { $set: profileFields }, { new: true });
-            return res.son(profile);
+            return res.json(profile);
         }
         // IF not found, then we can create
         profile = new Profile(profileFields);
@@ -73,5 +77,38 @@ router.post('/', [auth, [
 
 });
 
-module.exports = router;
+// @route GET api/profie
+// @desc Get all profile
+// @access Public
+
+router.get('/', async(req, res) => {
+    try {
+        const profiles = await Profile.find().populate("user", ["names", "avatar"]);
+        res.json(profiles);
+    } catch (err) {
+        console.log(err.message);
+        res.status(500).send("Server Error")
+    }
+})
+
+// @route GET api/rofile/user/:user_id
+// @desc  et profile by user ID
+// @access Public
+router.get('/user/:user_id', async(req, res) => {
+    try {
+        const profile = await Profile.findOne({ user: req.params.user_id }).populate("user", ["names", "avatar"]);
+        if (!profile) {
+            return res.status(400).json({ msg: "Profile does not exist" });
+        }
+        res.json(profile);
+    } catch (err) {
+        console.log(err.message);
+
+        // This bring an error message for profile that doesnt exist
+        if (err.kind === "ObjectId") {
+            return res.status(400).json({ msg: "Profile does not exist" });
+        }
+        res.status(500).send("Server Error");
+    }
+});
 module.exports = router;

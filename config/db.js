@@ -3,15 +3,16 @@ const config = require('config');
 const db = config.get('mongoURI');
 const colors = require('colors');
 
-const connectDB = async () => {
+const connectDB = async() => {
     try {
-        await mongoose.connect(db,{
+        await mongoose.connect(db, {
             useNewUrlParser: true,
             useCreateIndex: true,
-            useUnifiedTopology: true
+            useUnifiedTopology: true,
+            useFindAndModify: false
         });
         console.log(('MongoDB Connected....').bold.blue);
-    } catch(err) {
+    } catch (err) {
         console.log(err.message);
 
         // Exit process with failure
