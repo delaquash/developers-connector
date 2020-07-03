@@ -91,8 +91,8 @@ router.get('/', async(req, res) => {
     }
 })
 
-// @route GET api/rofile/user/:user_id
-// @desc  et profile by user ID
+// @route GET api/profile/user/:user_id
+// @desc  get profile by user ID
 // @access Public
 router.get('/user/:user_id', async(req, res) => {
     try {
@@ -108,6 +108,23 @@ router.get('/user/:user_id', async(req, res) => {
         if (err.kind === "ObjectId") {
             return res.status(400).json({ msg: "Profile does not exist" });
         }
+        res.status(500).send("Server Error");
+
+    }
+});
+// @route DELETE api/profile
+// @desc  DELETE profile by user and post
+// @access Private
+router.delete('/', auth, async(req, res) => {
+    try {
+        // Remove user profile
+        await Profile.findOneAndRemove({ user: req.user.id });
+        // Remove user
+        await User.findOneAndRemove({ _id: req.user.id });
+
+        res.json({ msg: "User deleted" });
+    } catch (err) {
+        console.log(err.message);
         res.status(500).send("Server Error");
     }
 });
