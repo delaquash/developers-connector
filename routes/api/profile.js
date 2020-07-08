@@ -3,7 +3,7 @@ const router = express.Router();
 const auth = require('../../middleware/auth');
 const Profile = require('../../model/Profile');
 const User = require('../../model/User');
-const request = require("request")
+const request = require("request");
 const { check, validationResult } = require('express-validator');
 const config = require("config");
 const axios = require('axios');
@@ -248,7 +248,7 @@ router.delete('/education/:edu_id', auth, async(req, res) => {
             );
             const headers = {
                 'user-agent': 'node.js',
-                Authorization: `token ${config.get('githubToken')}`
+                Authorization: `token ${config.get('githubSecret')}`
             };
             const gitHubResponse = await axios.get(uri, { headers });
             return res.json(gitHubResponse.data);
