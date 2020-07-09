@@ -1,5 +1,5 @@
 {
-    "mongoURI": "mongodb+srv://delaquarsh:Equarshie85@mernproject-y5xzk.mongodb.net/test?retryWrites=true&w=majority",
+    "mongoURI": "mongodb+srv://delaquash:Equarshie85@mernproject-y5xzk.mongodb.net/test?retryWrites=true&w=majority",
     "jwtSecret": "mysecrettoken",
     "githubClientId": "b5b2a9a67b40b4aa736c",
     "githubSecret": "40179cd67e8e094b7b5d5c212389ad7199c076d4"
