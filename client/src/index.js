@@ -14,9 +14,9 @@ ReactDOM.render(
       <Route exact path='/' component={Landing} />
       <Route exact path='/login' component={Login} />
       <Route exact path='/register' component={Register} />
-    </Router>
-    <App />
-  </React.StrictMode>,
+
+    <App /></Router>
+  </React.StrictMode>  ,
   document.getElementById('root')
 );
 
