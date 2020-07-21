@@ -67,5 +67,44 @@ img {
     margin-bottom: 1rem;
     outline: none;
     font: 1em sans-serif;
-    
+
+}
+
+
+.text-center {
+  text-align: center;
+}
+
+.text-primary {
+  color: var(--primary-color);
+}
+
+.text-dark {
+  color: var(--dark-color);
+}
+
+/* Padding */
+.p {
+  padding: 0.5rem;
+}
+.p-1 {
+  padding: 1rem;
+}
+.p-2 {
+  padding: 2rem;
+}
+.p-3 {
+  padding: 3rem;
+}
+.py {
+  padding: 0.5rem 0;
+}
+.py-1 {
+  padding: 1rem 0;
+}
+.py-2 {
+  padding: 2rem 0;
+}
+.py-3 {
+  padding: 3rem 0;
 }
