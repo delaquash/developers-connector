@@ -1,5 +1,6 @@
 import React, { Fragment, useState } from 'react';
-import { application } from 'express';
+import { Link } from "react-router-dom";
+
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -16,21 +17,7 @@ const Register = () => {
     if (password !== password2) {
       console.log('Password do not match');
     } else {
-      const newUser = {
-        name,
-        email,
-        password,
-      };
-      try {
-        const config = {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        };
-        const body = JSON.stringify(newUser);
-      } catch (err) {
-        console.log(err);
-      }
+        console.log("Successful");
     }
   };
   return (
@@ -76,7 +63,7 @@ const Register = () => {
         </div>
         <div className='form-group'>
           <input
-            type='password2'
+            type='password'
             value={password2}
             placeholder='Confirm Password'
             name='password2'
@@ -89,7 +76,7 @@ const Register = () => {
       </form>
       <p className='my-1'>
         Already have an Account?
-        <a href='login.html'>Sign In</a>
+        <Link to='login'>Sign In</Link>
       </p>
     </Fragment>
   );
